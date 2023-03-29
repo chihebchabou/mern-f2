@@ -78,7 +78,9 @@ controller.loginUser = asyncHandler(async (req, res) => {
  * @desc Get user data
  * @access Private
  */
-controller.getMe = asyncHandler(async (req, res) => {});
+controller.getMe = asyncHandler(async (req, res) => {
+  res.status(200).json(req.user);
+});
 
 // Generate JWT
 const generateToken = id => jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d'});
