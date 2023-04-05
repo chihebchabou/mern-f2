@@ -1,14 +1,17 @@
 import React from 'react'
 import {FaEnvelopeOpen, FaPhone} from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { setCurrent, unsetCurrent } from '../features/contacts/contactSlice';
+import { deleteContact, setCurrent, unsetCurrent } from '../features/contacts/contactSlice';
 
 const ContactItem = ({ contact }) => {
     const dispatch = useDispatch()
     const {_id, name, email, phone, type, createdAt} = contact;
 
     const onEdit = () => dispatch(setCurrent(contact))
-    const onDelete = () => {}
+    const onDelete = () => {
+        dispatch(deleteContact(_id))
+        dispatch(unsetCurrent())
+    }
 
   return (
     <div className="card mt-3" style={{ width: '100%'}}>
@@ -16,7 +19,8 @@ const ContactItem = ({ contact }) => {
             <h5 className="card-title">
                 {name}
                 <br />
-                <small className='text-secondary fs-6'>
+                <small style={{color: "#c8c8c8"}} className='fs-6'>
+                    <span className='text-secondary'>created at: </span>
                     {new Date(createdAt).toDateString()} at {new Date(createdAt).toLocaleTimeString()}
                 </small>
             </h5>
